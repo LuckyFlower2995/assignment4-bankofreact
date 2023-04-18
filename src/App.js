@@ -61,15 +61,19 @@ class App extends Component {
     { "id": this.state.debitList.length + 1,
       "description": '',
       "amount": 0,
-      "date": Date()
+      "date": new Date()
     } 
     
+    //edits input into new debit
     newDebit.description = debitInfo.target[0].value;
     newDebit.amount = debitInfo.target[1].value;
+    newDebit.date = newDebit.date.toISOString();
 
     const newList = [...this.state.debitList];
     newList.push(newDebit);
     this.setState({debitList : newList})
+
+
   }
 
 
