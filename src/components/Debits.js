@@ -15,18 +15,38 @@ const Debits = (props) => {
       return <li key={debit.id}>{debit.amount} {debit.description} {date}</li>
     });
   }
+
+  let totalDebit = () => {
+    var amountDebit = 0;
+    const { debits } = props;
+    debits.map((debit) => {  
+      amountDebit = amountDebit + Number(debit.amount);
+    });
+    
+    return amountDebit.toFixed(2);
+    
+  }
   // Render the list of Debit items and a form to input new Debit item
   return (
     <div>
       <h1>Debits</h1>
 
       {debitsView()}
-
+      <br/>
       <form onSubmit={props.addDebit}>
-        <input type="text" name="description" />
-        <input type="number" name="amount" />
+        <div>
+          <label>Description: </label>
+          <input type="text" name="description" />
+    
+          <label>Amount: </label>
+          <input type="number" name="amount" />
+        </div>
         <button type="submit">Add Debit</button>
       </form>
+      <br/><br/>
+      <div>
+        Total Debits: {totalDebit()}
+      </div>
       <br/>
       <Link to="/">Return to Home</Link>
     </div>
