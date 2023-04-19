@@ -16,6 +16,7 @@ const Debits = (props) => {
     });
   }
 
+  // Displays total amount of Debit items
   let totalDebit = () => {
     var amountDebit = 0;
     const { debits } = props;
@@ -45,6 +46,12 @@ const Debits = (props) => {
       <br/><br/>
       <div>
         Total Debits: {totalDebit()}
+      </div>
+      <div>
+        Total Credits:
+      </div>
+      <div>
+        Account Balance: {props.accountBalance}
       </div>
       <br/>
       <Link to="/">Return to Home</Link>
