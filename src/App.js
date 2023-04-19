@@ -28,16 +28,15 @@ class App extends Component {
       }
     };
   }
+  
   async componentDidMount() {
     let linkToCreditsAPI = 'https://johnnylaicode.github.io/api/credits.json';
     let linkToDebitsAPI = 'https://johnnylaicode.github.io/api/debits.json';
     try {
       let debitL = await axios.get(linkToDebitsAPI);
-      //console.log(debitL);
       this.setState({debitList: debitL.data});
 
       let creditL = await axios.get(linkToCreditsAPI);
-      //console.log(creditL);
       this.setState({creditList: creditL.data});
     }
     catch (error) {
@@ -47,6 +46,7 @@ class App extends Component {
       }
     }
   }
+
   // Update state's currentUser (userName) after "Log In" button is clicked
   mockLogIn = (logInInfo) => {  
     const newUser = {...this.state.currentUser};
@@ -64,7 +64,7 @@ class App extends Component {
       "date": new Date()
     } 
     
-    //edits input into new debit
+    //edits input into new credit
     newCredit.description = creditInfo.target[0].value;
     newCredit.amount = creditInfo.target[1].value;
     newCredit.date = newCredit.date.toISOString();
@@ -72,8 +72,10 @@ class App extends Component {
     const newList = [...this.state.creditList];
     newList.push(newCredit);
     this.setState({creditList : newList})
+
+    this.newBalance();
   }
-  
+
   // Update state's debitList after "Add Debit" button is clicked
   addDebit = (debitInfo) => { //debitInfo is just random parameter
     debitInfo.preventDefault();
@@ -92,6 +94,25 @@ class App extends Component {
     const newList = [...this.state.debitList];
     newList.push(newDebit);
     this.setState({debitList : newList})
+
+    this.newBalance();
+  }
+
+  // gets new accountBalance once Credit/Debit item is added
+  newBalance = () => { 
+    let newAmount = this.state.accountBalance;
+
+    var amountCredit = 0;
+    for(let x = 0; x < (this.state.creditList.length); x++){  
+      amountCredit = amountCredit + Number(this.state.creditList[x].amount);
+    }
+    var amountDebit = 0;
+    for(let x = 0; x < (this.state.debitList.length); x++){  
+      amountDebit = amountDebit + Number(this.state.debitList[x].amount);
+    }
+    
+    newAmount = amountCredit - amountDebit;
+    this.setState({accountBalance: newAmount});
   }
 
   // Create Routes and React elements to be rendered using React components
@@ -102,8 +123,8 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit}/>) 
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} addDebit={this.addDebit}/>) 
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit} accountBalance={this.state.accountBalance}/>) 
+    const DebitsComponent = () => (<Debits debits={this.state.debitList} addDebit={this.addDebit} accountBalance={this.state.accountBalance}/>) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
