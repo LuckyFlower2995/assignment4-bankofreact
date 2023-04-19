@@ -54,6 +54,26 @@ class App extends Component {
     this.setState({currentUser: newUser})
   }
 
+  // Update state's creditList after "Add Credit" button is clicked
+  addCredit = (creditInfo) => { 
+    creditInfo.preventDefault();
+    const newCredit = 
+    { "id": this.state.creditList.length + 1,
+      "description": '',
+      "amount": 0,
+      "date": new Date()
+    } 
+    
+    //edits input into new debit
+    newCredit.description = creditInfo.target[0].value;
+    newCredit.amount = creditInfo.target[1].value;
+    newCredit.date = newCredit.date.toISOString();
+
+    const newList = [...this.state.creditList];
+    newList.push(newCredit);
+    this.setState({creditList : newList})
+  }
+  
   // Update state's debitList after "Add Debit" button is clicked
   addDebit = (debitInfo) => { //debitInfo is just random parameter
     debitInfo.preventDefault();
@@ -72,10 +92,7 @@ class App extends Component {
     const newList = [...this.state.debitList];
     newList.push(newDebit);
     this.setState({debitList : newList})
-
-
   }
-
 
   // Create Routes and React elements to be rendered using React components
   render() {  
@@ -85,7 +102,7 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditList} />) 
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit}/>) 
     const DebitsComponent = () => (<Debits debits={this.state.debitList} addDebit={this.addDebit}/>) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages

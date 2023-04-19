@@ -22,10 +22,9 @@ const Debits = (props) => {
     debits.map((debit) => {  
       amountDebit = amountDebit + Number(debit.amount);
     });
-    
     return amountDebit.toFixed(2);
-    
   }
+  
   // Render the list of Debit items and a form to input new Debit item
   return (
     <div>
