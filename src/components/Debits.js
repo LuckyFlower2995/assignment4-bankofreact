@@ -24,6 +24,15 @@ const Debits = (props) => {
     }
     return amountDebit.toFixed(2);
   }
+
+  // Displays total amount of Credit items
+  let totalCredit = () => {
+    var amountCredit = 0;
+    for(let x = 0; x < (props.credits.length); x++){
+      amountCredit = amountCredit + Number(props.credits[x].amount);
+    }
+    return amountCredit.toFixed(2);
+  }
   
   // Render the list of Debit items and a form to input new Debit item
   return (
@@ -47,7 +56,7 @@ const Debits = (props) => {
         Total Debits: {totalDebit()}
       </div>
       <div>
-        Total Credits:
+        Total Credits: {totalCredit()}
       </div>
       <div>
         Account Balance: {props.accountBalance}
