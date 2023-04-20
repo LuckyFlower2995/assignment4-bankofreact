@@ -37,6 +37,13 @@ const Debits = (props) => {
   // Render the list of Debit items and a form to input new Debit item
   return (
     <div>
+      <br/>
+      <Link to="/userProfile">User Profile</Link> <></>
+      <Link to="/Login">Login</Link> <></>
+      <Link to="/Credits">Credit</Link> <></>
+      <Link to="/Debits">Debit</Link> <></>
+      <br/>
+
       <h1>Debits</h1>
 
       {debitsView()}
@@ -64,6 +71,7 @@ const Debits = (props) => {
       <br/>
       <Link to="/">Return to Home</Link>
     </div>
+    
   );
 }
 

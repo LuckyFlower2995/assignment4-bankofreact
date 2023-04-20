@@ -37,6 +37,12 @@ const Credits = (props) => {
   // Render the list of Credit items and a form to input new Credit item
   return (
     <div>
+      <br/>
+      <Link to="/userProfile">User Profile</Link> <></>
+      <Link to="/Login">Login</Link> <></>
+      <Link to="/Credits">Credit</Link> <></>
+      <Link to="/Debits">Debit</Link> <></>
+      <br/>
       <h1>Credits</h1>
       
       {creditsView()}
