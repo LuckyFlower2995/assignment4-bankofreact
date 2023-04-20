@@ -1,8 +1,10 @@
 # bank-of-react-example-code-gh-pages
-This repository is the starter code for Assignment 4 - Bank of React.
+This repository is Assignment 4 - Bank of React.
+
+Group Members: Stephanie Lam(LuckyFlower2995)
 
 ### Live Link 
-[Website link](https://johnnylaicode.github.io/bank-of-react-example-code-gh-pages/)
+[Website link](https://LuckyFlower2995.github.io/assignment4-bankofreact/)
 
 ----------
 ### 1. Use the following process to ***import*** the Assignment 4 starter code repository to your GitHub account as your starter codebase
