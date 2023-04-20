@@ -38,6 +38,9 @@ class App extends Component {
 
       let creditL = await axios.get(linkToCreditsAPI);
       this.setState({creditList: creditL.data});
+
+      // immediatedly sets new amount to accountBalance based on APIs  
+      this.newBalance(0,0);
     }
     catch (error) {
       if(error.response) {
@@ -72,8 +75,8 @@ class App extends Component {
     const newList = [...this.state.creditList];
     newList.push(newCredit);
     this.setState({creditList : newList})
-
-    this.newBalance();
+    
+    this.newBalance(Number(newCredit.amount),0);
   }
 
   // Update state's debitList after "Add Debit" button is clicked
@@ -95,24 +98,25 @@ class App extends Component {
     newList.push(newDebit);
     this.setState({debitList : newList})
 
-    this.newBalance();
+    this.newBalance(0, Number(newDebit.amount));
   }
 
   // gets new accountBalance once Credit/Debit item is added
-  newBalance = () => { 
+  newBalance = (newCreditAmount, newDebitAmount) => { 
     let newAmount = this.state.accountBalance;
 
-    var amountCredit = 0;
+    var amountCredit = newCreditAmount;
     for(let x = 0; x < (this.state.creditList.length); x++){  
       amountCredit = amountCredit + Number(this.state.creditList[x].amount);
+      //console.log(x);
     }
-    var amountDebit = 0;
+    var amountDebit = newDebitAmount;
     for(let x = 0; x < (this.state.debitList.length); x++){  
       amountDebit = amountDebit + Number(this.state.debitList[x].amount);
     }
     
     newAmount = amountCredit - amountDebit;
-    this.setState({accountBalance: newAmount});
+    this.setState({accountBalance: newAmount.toFixed(2)});
   }
 
   // Create Routes and React elements to be rendered using React components

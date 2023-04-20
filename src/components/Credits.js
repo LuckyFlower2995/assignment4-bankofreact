@@ -19,10 +19,9 @@ const Credits = (props) => {
   // Displays total amount of Credit items
   let totalCredit = () => {
     var amountCredit = 0;
-    const { credits } = props;
-    credits.map((credit) => {  
-      amountCredit = amountCredit + Number(credit.amount);
-    });
+    for(let x = 0; x < (props.credits.length); x++){
+      amountCredit = amountCredit + Number(props.credits[x].amount);
+    }
     return amountCredit.toFixed(2);
   }
 
