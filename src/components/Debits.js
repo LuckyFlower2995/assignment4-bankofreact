@@ -19,10 +19,9 @@ const Debits = (props) => {
   // Displays total amount of Debit items
   let totalDebit = () => {
     var amountDebit = 0;
-    const { debits } = props;
-    debits.map((debit) => {  
-      amountDebit = amountDebit + Number(debit.amount);
-    });
+    for(let x = 0; x < (props.debits.length); x++){
+      amountDebit = amountDebit + Number(props.debits[x].amount);
+    }
     return amountDebit.toFixed(2);
   }
   
