@@ -29,6 +29,7 @@ class App extends Component {
     };
   }
   
+  // Lifestyle method that includes API requests
   async componentDidMount() {
     let linkToCreditsAPI = 'https://johnnylaicode.github.io/api/credits.json';
     let linkToDebitsAPI = 'https://johnnylaicode.github.io/api/debits.json';
@@ -80,7 +81,7 @@ class App extends Component {
   }
 
   // Update state's debitList after "Add Debit" button is clicked
-  addDebit = (debitInfo) => { //debitInfo is just random parameter
+  addDebit = (debitInfo) => { 
     debitInfo.preventDefault();
     const newDebit = 
     { "id": this.state.debitList.length + 1,
@@ -101,7 +102,8 @@ class App extends Component {
     this.newBalance(0, Number(newDebit.amount));
   }
 
-  // gets new accountBalance once Credit/Debit item is added
+  // Gets new accountBalance once Credit/Debit item is added
+  // (new item is not included in current state list, so item must be included in parameter)
   newBalance = (newCreditAmount, newDebitAmount) => { 
     let newAmount = this.state.accountBalance;
 
@@ -127,8 +129,8 @@ class App extends Component {
       <UserProfile userName={this.state.currentUser.userName} memberSince={this.state.currentUser.memberSince} />
     )
     const LogInComponent = () => (<LogIn user={this.state.currentUser} mockLogIn={this.mockLogIn} />)
-    const CreditsComponent = () => (<Credits credits={this.state.creditList} addCredit={this.addCredit} accountBalance={this.state.accountBalance}/>) 
-    const DebitsComponent = () => (<Debits debits={this.state.debitList} addDebit={this.addDebit} accountBalance={this.state.accountBalance}/>) 
+    const CreditsComponent = () => (<Credits credits={this.state.creditList} debits={this.state.debitList} addCredit={this.addCredit} accountBalance={this.state.accountBalance}/>) 
+    const DebitsComponent = () => (<Debits debits={this.state.debitList} credits={this.state.creditList} addDebit={this.addDebit} addCredit={this.addCredit} accountBalance={this.state.accountBalance}/>) 
 
     // Important: Include the "basename" in Router, which is needed for deploying the React app to GitHub Pages
     return (
